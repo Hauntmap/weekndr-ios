@@ -1,0 +1,47 @@
+app_store_connect:
+  api_key: $APP_STORE_CONNECT_PRIVATE_KEY
+  key_id: $APP_STORE_CONNECT_KEY_IDENTIFIER
+  issuer_id: $APP_STORE_CONNECT_ISSUER_ID
+
+workflows:
+  ios-workflow:
+    name: Weekndr iOS
+    max_build_duration: 60
+    environment:
+      ios_signing:
+        distribution_type: app_store
+        bundle_identifier: com.weekndr.expoonreplit
+      groups:
+        - app_store
+      vars:
+        XCODE_PROJECT: "src/Weekndr.xcodeproj"
+        XCODE_SCHEME: "Weekndr"
+    scripts:
+      - name: Set build number
+        script: |
+          cd src
+          agvtool new-version -all 1
+      - name: Build iOS
+        script: |
+          xcode-project use-profiles
+          xcodebuild \
+            -project "$XCODE_PROJECT" \
+            -scheme "$XCODE_SCHEME" \
+            -configuration Release \
+            -archivePath /tmp/Weekndr.xcarchive \
+            archive
+      - name: Export IPA
+        script: |
+          xcodebuild \
+            -exportArchive \
+            -archivePath /tmp/Weekndr.xcarchive \
+            -exportOptionsPlist $CM_BUILD_DIR/exportOptions.plist \
+            -exportPath /tmp/Weekndr.ipa
+    artifacts:
+      - /tmp/Weekndr.ipa/*.ipa
+    publishing:
+      app_store_connect:
+        api_key: $APP_STORE_CONNECT_PRIVATE_KEY
+        key_id: $APP_STORE_CONNECT_KEY_IDENTIFIER
+        issuer_id: $APP_STORE_CONNECT_ISSUER_ID
+        submit_to_testflight: true
