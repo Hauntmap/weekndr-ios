@@ -29,6 +29,8 @@
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>HauntMap uses your location to show haunted and paranormal locations near you on the map and display your distance from them.</string>
+    <key>NSCameraUsageDescription</key>
+    <string>HauntMap allows you to take a photo or video when submitting a story or setting a profile picture at a haunted location.</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
