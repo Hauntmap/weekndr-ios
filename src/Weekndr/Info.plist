@@ -28,7 +28,7 @@
 		<true/>
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Weekndr uses your location to show nearby activities and people.</string>
+	<string>HauntMap uses your location to show haunted and paranormal locations near you on the map and display your distance from them.</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
